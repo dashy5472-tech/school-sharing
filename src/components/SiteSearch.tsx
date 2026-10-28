@@ -93,7 +93,8 @@ export default function SiteSearch({ onGo }: { onGo: (deptId: string) => void })
         key: `l-${link.id}`,
         kind: "링크",
         title: link.title,
-        sub: link.date,
+        /* 설명으로도 찾으므로 설명을 보여 주어 왜 걸렸는지 알 수 있게 합니다. */
+        sub: link.summary || link.date,
         href: link.href,
         text: [link.title, link.summary ?? "", link.date].join(" ")
       });

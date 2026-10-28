@@ -2925,8 +2925,16 @@ img {
     justify-content: flex-end;
   }
 
+  /* 휴대폰에서는 설명을 제목 아래 줄로 내려 보여 줍니다. */
+  .ss-hit {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
   .ss-sub {
-    display: none;
+    width: 100%;
+    margin-left: 0;
+    white-space: normal;
   }
 
   .gnb-btn.is-admin {
