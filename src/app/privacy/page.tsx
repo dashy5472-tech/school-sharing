@@ -3,7 +3,7 @@ import { SCHOOL } from "@/config/school";
 
 export const metadata: Metadata = {
   title: `개인정보처리방침 | ${SCHOOL.name} ${SCHOOL.siteName}`,
-  description: `${SCHOOL.name} ${SCHOOL.siteName} 가 다루는 정보와 그 처리 방법을 밝힙니다.`
+  description: `${SCHOOL.name} ${SCHOOL.siteName}이 다루는 정보와 그 처리 방법을 밝힙니다.`
 };
 
 const UPDATED = "2026년 9월 6일";
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
 
         <section className="duty-block">
           <p className="duty-summary">
-            {SCHOOL.siteName} 는 {SCHOOL.name} 교직원이 부서 업무를 나누어 보기 위해 쓰는 내부용 웹 화면입니다.
+            {SCHOOL.siteName}은 {SCHOOL.name} 교직원이 부서 업무를 나누어 보기 위해 쓰는 내부용 웹 화면입니다.
             학생의 개인정보는 수집하지도 처리하지도 않습니다. 아래에 무엇을 다루는지 그대로 밝힙니다.
           </p>
         </section>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
 
         <p className="fm-hint">
           <a className="dl-edit" href="../">
-            부별공유로 돌아가기
+            부서별 업무 나눔 공간으로 돌아가기
           </a>
         </p>
       </main>

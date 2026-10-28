@@ -1,10 +1,10 @@
 export const profile = {
-  teacherName: "우리학교 부별공유",
-  title: "우리학교 부별공유",
-  introTitle: "우리학교 부별공유",
+  teacherName: "강릉문성고 부서별 업무 나눔 공간",
+  title: "강릉문성고 부서별 업무 나눔 공간",
+  introTitle: "강릉문성고 부서별 업무 나눔 공간",
   introDescription: "부서 탭에서 업무분장을 열면 반복 업무와 처리 절차가 나옵니다. 마감이 있는 일은 교무실 공지에 있습니다.",
   catalogTitle: "교무실 공지",
-  catalogDescription: "부별공유 · 업무분장",
+  catalogDescription: "부서별 업무 나눔 공간 · 업무분장",
   /* 왼쪽 프로필 사진입니다. public/assets/ 안에 파일을 넣고 경로를 적으세요. */
   photo: { src: "/assets/profile.svg", alt: "학교 배지 그림" },
   /* 홈 탭 위쪽 미니룸 이미지입니다. public/assets/ 안에 파일을 넣고 경로를 적으세요. */

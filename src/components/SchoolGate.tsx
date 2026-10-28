@@ -119,7 +119,7 @@ export default function SchoolGate({ children }: { children: React.ReactNode }) 
   return (
     <div className="sg-root">
       <div className="sg-card">
-        <h1 className="sg-title">우리학교 부별공유</h1>
+        <h1 className="sg-title">강릉문성고 부서별 업무 나눔 공간</h1>
         <p className="sg-copy">
           학교에서 받은 구글 계정으로 로그인해야 볼 수 있습니다.
           {SCHOOL_DOMAINS.length > 0 ? (

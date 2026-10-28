@@ -9,7 +9,7 @@ export const SCHOOL = {
   name: "강릉문성고등학교",
 
   /* 사이트 이름입니다. 머리말과 브라우저 탭에 나옵니다. */
-  siteName: "부별공유",
+  siteName: "부서별 업무 나눔 공간",
 
   /* 로그인을 허용할 학교 구글 도메인입니다. @ 없이 적습니다.
      쉼표로 여러 개를 적을 수 있습니다. 예: "abc.sen.hs.kr,def.hs.kr"
@@ -28,7 +28,7 @@ export const SCHOOL = {
   dormsUrl: "",
 
   /* 개인정보처리방침에 적는 담당자 표기입니다. 이름 대신 직책을 권합니다. */
-  privacyManager: "부별공유 관리자",
+  privacyManager: "부서별 업무 나눔 공간 관리자",
 
   /* 나이스 학사일정을 달력에 불러올 때 쓰는 코드입니다. 비워 두면 불러오지 않습니다.
      officeCode 는 시도교육청 코드(강원 K10), schoolCode 는 행정표준코드입니다.

@@ -17,7 +17,7 @@ type InstallPrompt = Event & {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 };
 
-const SHORTCUT_NAME = "우리학교 부별공유";
+const SHORTCUT_NAME = "강릉문성고 부서별 업무 나눔 공간";
 
 /* 브라우저마다 바로가기를 만드는 메뉴 이름이 달라서 갈라 적습니다. */
 function menuSteps(): string[] {
