@@ -7,7 +7,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1F3B63"
+  themeColor: "#1C2370"
 };
 
 export const metadata: Metadata = {

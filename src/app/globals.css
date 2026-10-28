@@ -1,27 +1,28 @@
-/* 학교 홈페이지 결을 따른 부서별 업무 나눔 공간 화면입니다.
+/* 노션처럼 흰 바탕과 얇은 선, 넉넉한 여백으로 정리한 부서별 업무 나눔 공간 화면입니다.
+   강조색은 강릉문성고 교표의 남색 하나만 쓰고, 빨강·주황은 마감과 공휴일처럼 뜻이 있을 때만 씁니다.
    글자는 작고 흐린 회색 대신, 진한 먹색과 충분한 크기로 씁니다. */
 
 :root {
-  /* 학교 수채화와 교표에서 뽑은 색입니다.
-     종이 아이보리 바탕에, 교표 자주와 벽돌 붉은색을 씁니다. */
-  --wine: #9B2233;
-  --wine-dark: #7A1727;
-  --brick: #B4653F;
-  --blush: #E3C3BB;
-  --blush-soft: #F8EAE5;
-  --crimson: #D2542F;
-  --slate: #5C7A8C;
-  --ink: #2E2724;
-  --body: #52453F;
-  --muted: #766862;
-  --line: #E2D9CF;
-  --line-soft: #EFE7DE;
-  --paper: #F7F3EA;
-  --paper-deep: #F0E9DD;
-  --tint: #F8EAE5;
+  /* 변수 이름은 예전 그대로 두고 값만 바꿨습니다.
+     --wine 이 주 강조색(교표 남색)이고, --blush 계열은 그 남색의 옅은 바탕입니다. */
+  --wine: #1C2370;
+  --wine-dark: #120F5C;
+  --brick: #C26A1B;
+  --blush: #D5D9EE;
+  --blush-soft: #EEF0F8;
+  --crimson: #D44C47;
+  --slate: #2F6DB5;
+  --ink: #1F1E1C;
+  --body: #37352F;
+  --muted: #73716C;
+  --line: #E6E5E1;
+  --line-soft: #F0EFEC;
+  --paper: #FFFFFF;
+  --paper-deep: #F7F7F5;
+  --tint: #EEF0F8;
   --white: #FFFFFF;
-  --radius: 10px;
-  --shadow: 0 2px 10px rgba(46, 39, 36, 0.09);
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(15, 15, 15, 0.06), 0 1px 2px rgba(15, 15, 15, 0.04);
   --font: "Pretendard", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", system-ui, sans-serif;
 }
 
@@ -239,31 +240,18 @@ img {
   color: var(--ink);
   padding-bottom: 10px;
   margin-bottom: 14px;
-  border-bottom: 2px solid var(--wine);
+  border-bottom: 1px solid var(--line);
 }
 
 .hero {
   position: relative;
   margin-bottom: 28px;
-  padding: 40px 28px 34px;
+  padding: 32px 28px 28px;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
-  background:
-    radial-gradient(60% 90% at 12% 0%, rgba(180, 101, 63, 0.26), transparent 70%),
-    radial-gradient(55% 85% at 88% 10%, rgba(155, 34, 51, 0.16), transparent 72%),
-    radial-gradient(70% 90% at 55% 100%, rgba(210, 84, 47, 0.14), transparent 70%),
-    var(--paper);
-}
-
-.hero::after {
-  /* 수채 종이 결 */
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(43, 49, 38, 0.045) 1px, transparent 1px);
-  background-size: 5px 5px;
-  pointer-events: none;
+  border-left: 4px solid var(--wine);
+  background: var(--paper-deep);
 }
 
 .hero-text {
@@ -310,7 +298,7 @@ img {
   padding: 12px;
   background: var(--paper-deep);
   color: var(--ink);
-  border-bottom: 2px solid var(--wine);
+  border-bottom: 1px solid var(--line);
 }
 
 .cal-month {
@@ -524,12 +512,12 @@ img {
 
 .dl-item.is-today {
   border-left-color: var(--crimson);
-  background: #FFF7F7;
+  background: #FDF3F2;
 }
 
 .dl-item.is-soon {
   border-left-color: var(--brick);
-  background: #FCF4EE;
+  background: #FBF5EE;
 }
 
 .dl-item.is-over {
@@ -581,7 +569,7 @@ img {
   padding: 2px 8px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -620,7 +608,7 @@ img {
 }
 
 .link-card:hover {
-  border-color: var(--brick);
+  border-color: var(--wine);
   background: var(--tint);
 }
 
@@ -629,8 +617,8 @@ img {
   padding: 1px 7px;
   font-size: 11.5px;
   font-weight: 700;
-  color: var(--brick);
-  background: var(--paper-deep);
+  color: var(--wine);
+  background: var(--blush-soft);
   border-radius: 4px;
 }
 
@@ -654,7 +642,7 @@ img {
 .dept-head {
   padding-bottom: 12px;
   margin-bottom: 16px;
-  border-bottom: 2px solid var(--wine);
+  border-bottom: 1px solid var(--line);
 }
 
 .dept-head h1 {
@@ -725,7 +713,7 @@ img {
 }
 
 .duty-card:hover {
-  border-color: var(--brick);
+  border-color: var(--wine);
   box-shadow: var(--shadow);
 }
 
@@ -746,7 +734,7 @@ img {
   padding: 2px 8px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -832,7 +820,7 @@ img {
   font-size: 13px;
   font-weight: 700;
   text-align: center;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -895,7 +883,7 @@ img {
   font-size: 12px;
   font-weight: 700;
   text-align: center;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -988,7 +976,7 @@ img {
   top: 9px;
   width: 5px;
   height: 5px;
-  background: var(--brick);
+  background: var(--wine);
   border-radius: 50%;
 }
 
@@ -1330,17 +1318,17 @@ img {
 
 .tk.is-today {
   border-left-color: var(--crimson);
-  background: #FDF6F2;
+  background: #FDF3F2;
 }
 
 .tk.is-soon {
   border-left-color: var(--brick);
-  background: #FBF7F1;
+  background: #FBF5EE;
 }
 
 .tk.is-over {
-  border-left-color: #B9B6A6;
-  background: #F7F6F1;
+  border-left-color: #C9C8C4;
+  background: #F7F7F5;
 }
 
 .tk-head {
@@ -1508,7 +1496,7 @@ img {
 
 .fm-row input:focus,
 .fm-row textarea:focus {
-  outline: 2px solid var(--brick);
+  outline: 2px solid var(--wine);
   outline-offset: -1px;
 }
 
@@ -1583,8 +1571,8 @@ img {
   padding: 2px 8px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--brick);
-  background: #F5EBE2;
+  color: var(--wine);
+  background: var(--blush-soft);
   border-radius: 4px;
 }
 
@@ -1671,14 +1659,14 @@ img {
 }
 
 .form-list a:hover {
-  border-color: var(--brick);
+  border-color: var(--wine);
 }
 
 .form-kind {
   padding: 2px 8px;
   font-size: 12px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -1934,7 +1922,7 @@ img {
 .ap-count {
   font-size: 13px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
 }
 
 .ap-list {
@@ -2004,7 +1992,7 @@ img {
   padding: 2px 9px;
   font-size: 12.5px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 999px;
 }
@@ -2058,7 +2046,7 @@ img {
 .tr-preview {
   font-size: 13px;
   font-weight: 600;
-  color: var(--brick);
+  color: var(--wine);
 }
 
 .tr-ok {
@@ -2104,7 +2092,7 @@ img {
 .tr-dept {
   padding: 1px 7px;
   font-size: 11.5px;
-  color: var(--brick);
+  color: var(--wine);
   background: var(--paper-deep);
   border-radius: 4px;
 }
@@ -2134,7 +2122,7 @@ img {
   margin-bottom: 6px;
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--brick);
+  color: var(--wine);
 }
 
 .tk-owner-mail {
@@ -2207,7 +2195,7 @@ img {
   background: var(--white);
   border: 1px solid var(--wine);
   border-radius: var(--radius);
-  box-shadow: 0 8px 24px rgba(46, 39, 36, 0.22);
+  box-shadow: 0 8px 24px rgba(15, 15, 15, 0.22);
 }
 
 .ta-bar {
