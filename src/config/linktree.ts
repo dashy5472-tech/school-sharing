@@ -17,7 +17,7 @@ export const profile = {
   photoLabel: "사진첩",
   photoSubtitlePrefix: "사진",
   /* 오른쪽 위, 옛날 싸이월드 주소창을 흉내 낸 문구입니다. */
-  displayUrl: "https://github.com/dashy5472-tech/school-sharing"
+  displayUrl: "https://munseong-sharing.netlify.app/"
 };
 
 /* 프로필 탭에 들어가는 소개 글입니다. 문구만 바꿔서 쓰세요. */

@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/dashy5472-tech/school-sharing.git"
   },
-  "homepage": "https://github.com/dashy5472-tech/school-sharing",
+  "homepage": "https://munseong-sharing.netlify.app/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

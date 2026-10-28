@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "우리학교 부별공유",
-    "url": "https://seoulsejong-sharing.netlify.app/",
+    "name": "강릉문성고 부별공유",
+    "url": "https://munseong-sharing.netlify.app/",
     "stack": "Next.js"
   },
   "tracks": [
@@ -10,7 +10,7 @@
   ],
   "edzipCase": "A",
   "teacher": {
-    "dormsHandle": "cando8442"
+    "dormsHandle": ""
   },
   "ownershipConfirmed": true
 }
