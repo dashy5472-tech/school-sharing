@@ -2348,3 +2348,117 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ------------------------------------- */
+/* Relate 스타일 미리보기                  */
+/* 흰 바탕, 진한 남색 글자, 선명한 파랑 강조, */
+/* 알약 버튼, 둥근 카드, 하늘색 빛 번짐      */
+/* ------------------------------------- */
+:root {
+  --wine: #2B6BEA;
+  --wine-dark: #1D4FC4;
+  --blush: #D6E4FD;
+  --blush-soft: #EEF4FF;
+  --tint: #EEF4FF;
+  --slate: #3E7BEA;
+  --ink: #11213E;
+  --body: #3A4660;
+  --muted: #6B7489;
+  --line: #E6EAF0;
+  --line-soft: #F0F3F7;
+  --paper: #FFFFFF;
+  --paper-deep: #F7F9FC;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(17, 33, 62, 0.05), 0 6px 16px rgba(17, 33, 62, 0.05);
+}
+
+/* 첫 화면: 흰 바탕 아래로 하늘색 빛이 번지고 옅은 격자가 깔립니다. */
+.hero {
+  padding: 56px 28px 64px;
+  text-align: center;
+  border: none;
+  border-left: none;
+  border-radius: 20px;
+  background:
+    linear-gradient(rgba(43, 107, 234, 0.06) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(43, 107, 234, 0.06) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(90% 120% at 50% 130%, rgba(79, 134, 247, 0.85), rgba(142, 180, 252, 0.45) 45%, transparent 75%),
+    var(--white);
+}
+
+.hero-text h1 {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+/* 버튼은 양 끝이 둥근 알약 모양입니다. */
+.ib-btn,
+.drive-btn,
+.sg-login,
+.fm-save,
+.fm-cancel,
+.fm-more,
+.pdf-pick,
+.add-btn,
+.back-btn,
+.tk-doc,
+.dl-edit,
+.dl-del,
+.ap-bar button,
+.tr-toggle {
+  border-radius: 999px;
+}
+
+/* 카드는 더 둥글고 옅은 그림자를 둡니다. */
+.cal,
+.link-card,
+.duty-card,
+.dl-item,
+.tk,
+.dl-empty {
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.cal-head {
+  background: var(--white);
+}
+
+.cal-wd {
+  background: var(--white);
+}
+
+/* 마감 줄은 왼쪽 색 띠 대신 부서 이름 앞에 상태 점을 찍습니다. */
+.dl-item {
+  border-left-width: 1px;
+}
+
+.dl-dept::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--slate);
+  vertical-align: 1px;
+}
+
+.dl-item.is-today .dl-dept::before {
+  background: var(--crimson);
+}
+
+.dl-item.is-soon .dl-dept::before {
+  background: var(--brick);
+}
+
+.dl-item.is-over .dl-dept::before {
+  background: #9AA3B2;
+}
