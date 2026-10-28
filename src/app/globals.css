@@ -358,15 +358,18 @@ img {
 
 .cal-cell {
   position: relative;
-  min-height: 56px;
-  padding: 7px 6px;
+  min-height: 84px;
+  min-width: 0;
+  padding: 5px 4px 6px;
   background: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 2px;
   font-size: 14px;
   color: var(--ink);
+  text-align: left;
 }
 
 .cal-cell.is-empty {
@@ -380,6 +383,11 @@ img {
 
 .cal-cell.is-sat .cal-day {
   color: var(--slate);
+}
+
+/* 토요일이어도 공휴일이면 빨간색입니다. */
+.cal-cell.is-holiday .cal-day {
+  color: var(--crimson);
 }
 
 .cal-cell:not(.is-empty):hover {
@@ -404,14 +412,39 @@ img {
   font-weight: 600;
 }
 
-.cal-dot {
-  min-width: 20px;
-  padding: 1px 6px;
-  font-size: 12px;
-  font-weight: 700;
+/* 칸 안의 일정 이름입니다. 두 줄까지 보이고 넘치면 말줄임표로 자릅니다.
+   나이스 학사일정은 차분한 색, 사이트에서 올린 마감은 진한 색으로 나눕니다. */
+.cal-label {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding: 1px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  overflow: hidden;
   color: var(--white);
   background: var(--crimson);
-  border-radius: 999px;
+  border-radius: 3px;
+}
+
+.cal-label.is-neis {
+  color: var(--ink);
+  background: var(--paper-deep);
+}
+
+.cal-label.is-holiday {
+  color: var(--crimson);
+  background: var(--blush-soft);
+}
+
+.cal-more {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  padding-left: 4px;
 }
 
 .cal-picked {
@@ -1203,8 +1236,15 @@ img {
   }
 
   .cal-cell {
-    min-height: 46px;
+    min-height: 64px;
+    padding: 4px 2px;
     font-size: 13px;
+  }
+
+  .cal-label {
+    padding: 1px 2px;
+    font-size: 10px;
+    letter-spacing: -0.02em;
   }
 }
 

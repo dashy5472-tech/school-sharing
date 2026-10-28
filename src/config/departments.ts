@@ -161,6 +161,8 @@ export type Notice = {
   dept: string;
   title: string;
   detail?: string;
+  /* 나이스에서 공휴일로 온 날입니다. 달력에서 날짜를 빨간색으로 칠합니다. */
+  holiday?: boolean;
 };
 
 export const notices: Notice[] = [];

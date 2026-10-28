@@ -1,11 +1,14 @@
 "use client";
 
-/* 첫 화면 달력입니다. 마감이 있는 날에 표시를 하고, 날짜를 누르면 그날 마감이 아래에 나옵니다. */
+/* 첫 화면 달력입니다. 칸마다 그날 일정 이름을 적고, 날짜를 누르면 그날 일정 전체가 아래에 나옵니다. */
 
 import { useMemo, useState } from "react";
 import type { Notice } from "@/config/departments";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
+
+/* 칸 하나에 이름을 몇 개까지 적을지입니다. 넘치면 "+2" 처럼 남은 건수만 붙입니다. */
+const MAX_LABELS = 2;
 
 function ymd(date: Date) {
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -81,12 +84,14 @@ export default function Calendar({
           const key = ymd(new Date(year, month, day));
           const items = byDate.get(key) ?? [];
           const weekday = index % 7;
+          const shown = items.slice(0, MAX_LABELS);
           const classes = [
             "cal-cell",
             items.length > 0 ? "has-due" : "",
             key === todayKey ? "is-today" : "",
             key === picked ? "is-picked" : "",
             weekday === 0 ? "is-sun" : "",
+            items.some(item => item.holiday) ? "is-holiday" : "",
             weekday === 6 ? "is-sat" : ""
           ]
             .filter(Boolean)
@@ -102,10 +107,20 @@ export default function Calendar({
                 setPicked(next);
                 if (next && onPick) onPick(next);
               }}
-              aria-label={`${month + 1}월 ${day}일${items.length ? `, 마감 ${items.length}건` : ""}`}
+              aria-label={`${month + 1}월 ${day}일${items.length ? `, 일정 ${items.length}건` : ""}`}
             >
               <span className="cal-day">{day}</span>
-              {items.length > 0 ? <span className="cal-dot">{items.length}</span> : null}
+              {shown.map(item => (
+                <span
+                  key={item.id}
+                  className={`cal-label${item.dept === "나이스" ? " is-neis" : ""}${item.holiday ? " is-holiday" : ""}`}
+                >
+                  {item.title}
+                </span>
+              ))}
+              {items.length > shown.length ? (
+                <span className="cal-more">+{items.length - shown.length}</span>
+              ) : null}
             </button>
           );
         })}
@@ -113,9 +128,9 @@ export default function Calendar({
 
       <div className="cal-picked">
         {picked === null ? (
-          <p className="cal-hint">날짜를 누르면 그날 마감이 여기에 나옵니다.</p>
+          <p className="cal-hint">날짜를 누르면 그날 일정이 여기에 나옵니다.</p>
         ) : pickedList.length === 0 ? (
-          <p className="cal-hint">이날은 마감이 없습니다.</p>
+          <p className="cal-hint">이날은 일정이 없습니다.</p>
         ) : (
           <ul className="cal-picked-list">
             {pickedList.map(item => (

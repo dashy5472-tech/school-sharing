@@ -14,6 +14,8 @@ type NeisRow = {
   ONE_GRADE_EVENT_YN?: string;
   TW_GRADE_EVENT_YN?: string;
   THREE_GRADE_EVENT_YN?: string;
+  /* 공휴일 / 휴업일 / 해당없음 */
+  SBTR_DD_SC_NM?: string;
 };
 
 const SKIP = new Set(["토요휴업일"]);
@@ -87,7 +89,8 @@ function toNotices(rows: NeisRow[]): Notice[] {
       due: dashed(row.AA_YMD),
       dept: "나이스",
       title,
-      detail: row.EVENT_CNTNT ?? undefined
+      detail: row.EVENT_CNTNT ?? undefined,
+      holiday: row.SBTR_DD_SC_NM === "공휴일"
     });
   });
 
