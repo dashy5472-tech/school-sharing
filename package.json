@@ -1,14 +1,14 @@
 {
-  "name": "school-work-links",
+  "name": "school-sharing",
   "version": "1.0.0",
   "private": false,
   "license": "MIT",
   "author": "cando8442",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cando8442/school-work-links.git"
+    "url": "https://github.com/dashy5472-tech/school-sharing.git"
   },
-  "homepage": "https://cando8442.github.io/school-work-links/",
+  "homepage": "https://github.com/dashy5472-tech/school-sharing",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
