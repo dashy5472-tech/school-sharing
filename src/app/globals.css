@@ -2350,7 +2350,7 @@ img {
 }
 
 /* ------------------------------------- */
-/* Relate 스타일 미리보기                  */
+/* Relate 스타일                          */
 /* 흰 바탕, 진한 남색 글자, 선명한 파랑 강조, */
 /* 알약 버튼, 둥근 카드, 하늘색 빛 번짐      */
 /* ------------------------------------- */
@@ -2372,30 +2372,114 @@ img {
   --shadow: 0 1px 2px rgba(17, 33, 62, 0.05), 0 6px 16px rgba(17, 33, 62, 0.05);
 }
 
-/* 첫 화면: 흰 바탕 아래로 하늘색 빛이 번지고 옅은 격자가 깔립니다. */
-.hero {
-  padding: 56px 28px 64px;
-  text-align: center;
-  border: none;
+/* 머리말: 반투명 흰 바탕에 교표와 진한 남색 이름을 붙여 한 덩어리로 보이게 합니다.
+   파랑은 버튼과 지금 보고 있는 탭에만 씁니다. */
+.hd {
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.hd-in {
+  padding: 12px 20px;
+}
+
+.hd-brand {
+  gap: 10px;
+}
+
+.hd-brand img {
+  height: 40px;
+}
+
+.hd-sub {
+  padding-left: 0;
   border-left: none;
-  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.gnb {
+  border-top: none;
+  background: transparent;
+}
+
+.gnb-in {
+  padding: 0 14px 10px;
+  gap: 4px;
+}
+
+.gnb-btn {
+  padding: 6px 14px;
+  font-size: 14.5px;
+  color: var(--body);
+  border-bottom: none;
+  border-radius: 999px;
+}
+
+.gnb-btn:hover {
+  color: var(--ink);
+  background: var(--paper-deep);
+}
+
+.gnb-btn.is-active {
+  color: var(--wine);
+  background: var(--blush-soft);
+}
+
+/* 첫 화면: 흰 바탕 아래로 하늘색 빛이 번지고 옅은 격자가 깔립니다.
+   달력이 한눈에 들어오도록 높이는 낮게 둡니다. */
+.hero {
+  margin-bottom: 24px;
+  padding: 26px 24px 30px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  border-radius: 16px;
   background:
-    linear-gradient(rgba(43, 107, 234, 0.06) 1px, transparent 1px) 0 0 / 32px 32px,
-    linear-gradient(90deg, rgba(43, 107, 234, 0.06) 1px, transparent 1px) 0 0 / 32px 32px,
-    radial-gradient(90% 120% at 50% 130%, rgba(79, 134, 247, 0.85), rgba(142, 180, 252, 0.45) 45%, transparent 75%),
+    linear-gradient(rgba(43, 107, 234, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(43, 107, 234, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+    radial-gradient(70% 140% at 50% 160%, rgba(79, 134, 247, 0.55), rgba(142, 180, 252, 0.25) 50%, transparent 80%),
     var(--white);
 }
 
 .hero-text h1 {
-  font-size: 34px;
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.25;
+  margin-bottom: 0;
 }
 
 .hero-text p {
-  margin-top: 10px;
+  margin-top: 6px;
+  font-size: 14.5px;
   color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .hd-in {
+    padding: 10px 14px;
+  }
+
+  .hd-brand img {
+    height: 34px;
+  }
+
+  .hd-sub {
+    font-size: 16px;
+  }
+
+  .hero {
+    padding: 20px 16px 24px;
+  }
+
+  .hero-text h1 {
+    font-size: 22px;
+  }
 }
 
 /* 버튼은 양 끝이 둥근 알약 모양입니다. */
