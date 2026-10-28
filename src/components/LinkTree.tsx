@@ -24,6 +24,7 @@ import {
   type SchoolEvent
 } from "@/lib/school";
 import { fetchNeisSchedule } from "@/lib/neis";
+import { dustGrade, fetchWeather, type Weather } from "@/lib/weather";
 import { boardPosts } from "@/config/linktree";
 import { SCHOOL } from "@/config/school";
 import {
@@ -319,6 +320,28 @@ function HomeView() {
     void fetchNeisSchedule().then(setNeisItems);
   }, []);
 
+  /* 오늘 날짜와 날씨는 정적 페이지로 미리 만들어 둘 수 없으므로 화면을 연 뒤에 채웁니다. */
+  const [today, setToday] = useState<{ key: string; label: string } | null>(null);
+  const [weather, setWeather] = useState<Weather | null>(null);
+  useEffect(() => {
+    const now = new Date();
+    setToday({
+      key: new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(now),
+      label: new Intl.DateTimeFormat("ko-KR", {
+        timeZone: "Asia/Seoul",
+        month: "long",
+        day: "numeric",
+        weekday: "long"
+      }).format(now)
+    });
+    void fetchWeather().then(setWeather);
+  }, []);
+
+  const todaySchedule = useMemo(
+    () => (today ? neisItems.filter(n => n.due === today.key).map(n => n.title) : []),
+    [neisItems, today]
+  );
+
   /* 제출 과제도 마감입니다. 마감 기한 목록과 달력에 함께 올립니다. */
   const taskNotices = useMemo<Notice[]>(
     () =>
@@ -386,8 +409,33 @@ function HomeView() {
     <>
       <section className="hero">
         <div className="hero-text">
-          <h1>{SCHOOL.siteName}</h1>
-          <p>부서별 업무분장과 마감을 한곳에서 봅니다. 자료는 구글 문서와 시트에 두고 여기에는 링크만 겁니다.</p>
+          <h1>{today ? today.label : " "}</h1>
+          <ul className="today-facts">
+            {weather ? (
+              <>
+                <li className="tf-weather">
+                  <span aria-hidden="true">{weather.icon}</span> {weather.label} <b>{weather.temp}°</b>
+                  <em>
+                    최고 {weather.max}° · 최저 {weather.min}°
+                  </em>
+                </li>
+                <li>강수확률 {weather.rain}%</li>
+                {weather.pm10 !== undefined ? (
+                  <li className={`tf-dust is-${dustGrade(weather.pm10, "pm10").tone}`}>
+                    미세먼지 {dustGrade(weather.pm10, "pm10").label}
+                  </li>
+                ) : null}
+                {weather.pm25 !== undefined ? (
+                  <li className={`tf-dust is-${dustGrade(weather.pm25, "pm25").tone}`}>
+                    초미세먼지 {dustGrade(weather.pm25, "pm25").label}
+                  </li>
+                ) : null}
+              </>
+            ) : null}
+            <li className={todayList.length > 0 ? "tf-due is-on" : "tf-due"}>오늘 마감 {todayList.length}건</li>
+            {todaySchedule.length > 0 ? <li className="tf-neis">{todaySchedule.join(", ")}</li> : null}
+          </ul>
+          {weather ? <p className="today-note">{SCHOOL.location.name} 기준 · 미세먼지는 예보 값</p> : null}
         </div>
       </section>
 

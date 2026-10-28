@@ -33,7 +33,10 @@ export const SCHOOL = {
   /* 나이스 학사일정을 달력에 불러올 때 쓰는 코드입니다. 비워 두면 불러오지 않습니다.
      officeCode 는 시도교육청 코드(강원 K10), schoolCode 는 행정표준코드입니다.
      인증키는 환경변수 NEXT_PUBLIC_NEIS_API_KEY 로 넣습니다. 없으면 5건까지만 옵니다. */
-  neis: { officeCode: "K10", schoolCode: "7801094" }
+  neis: { officeCode: "K10", schoolCode: "7801094" },
+
+  /* 첫 화면 날씨를 볼 위치입니다(강릉시 지변길 158). 비워 두면 날씨를 숨깁니다. */
+  location: { name: "강릉", latitude: 37.77, longitude: 128.9 }
 } as const;
 
 /* 도메인 목록입니다. 환경변수 NEXT_PUBLIC_SCHOOL_DOMAIN 을 넣으면 그것이 우선합니다. */

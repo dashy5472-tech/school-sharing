@@ -2456,6 +2456,82 @@ img {
   color: var(--muted);
 }
 
+/* 제목 아래 오늘 정보 한 줄입니다. 날씨, 미세먼지, 오늘 마감, 오늘 학사일정을 알약으로 늘어놓습니다. */
+.today-facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.today-facts li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--body);
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.today-facts .tf-weather b {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.today-facts .tf-weather em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+.today-facts .tf-dust.is-good {
+  color: #1F6FD1;
+  background: #EEF4FF;
+  border-color: #D6E4FD;
+}
+
+.today-facts .tf-dust.is-normal {
+  color: #2F7A45;
+  background: #EDF7F0;
+  border-color: #CFE6D6;
+}
+
+.today-facts .tf-dust.is-bad {
+  color: #B4560F;
+  background: #FBF0E4;
+  border-color: #F0D9BF;
+}
+
+.today-facts .tf-dust.is-worst {
+  color: #B3261E;
+  background: #FDECEB;
+  border-color: #F4C7C3;
+}
+
+.today-facts .tf-due.is-on {
+  color: var(--crimson);
+  background: #FDF3F2;
+  border-color: #F4CFCB;
+}
+
+.today-facts .tf-neis {
+  color: var(--wine);
+  background: var(--blush-soft);
+  border-color: var(--blush);
+}
+
+.hero-text .today-note {
+  margin-top: 6px;
+  font-size: 12px;
+}
+
 @media (max-width: 640px) {
   .hd-in {
     padding: 10px 14px;
