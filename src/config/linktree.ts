@@ -95,28 +95,28 @@ export type BoardPost = {
 
 export const boardPosts: BoardPost[] = [
   {
-    id: "neis-sen",
+    id: "neis-gwe",
     category: "업무시스템",
-    title: "나이스(NEIS) 서울",
+    title: "나이스(NEIS) 강원",
     summary: "출결·성적·학교생활기록부 입력",
-    date: "sen.neis.go.kr",
-    href: "https://sen.neis.go.kr"
+    date: "gwe.neis.go.kr",
+    href: "https://gwe.neis.go.kr/"
   },
   {
     id: "work-portal",
     category: "업무시스템",
-    title: "서울시교육청 업무포털",
+    title: "강원교육청 업무포털",
     summary: "공문 기안과 결재, 메모보고",
-    date: "work.sen.go.kr",
-    href: "https://work.sen.go.kr"
+    date: "gwe.eduptl.kr",
+    href: "https://gwe.eduptl.kr/"
   },
   {
     id: "klef",
     category: "업무시스템",
-    title: "K-에듀파인",
+    title: "K-에듀파인 강원",
     summary: "품의·정산 등 학교회계 업무",
-    date: "klef.go.kr",
-    href: "https://klef.go.kr"
+    date: "klef.gwe.go.kr",
+    href: "https://klef.gwe.go.kr/"
   },
   {
     id: "neis-public",
@@ -127,12 +127,12 @@ export const boardPosts: BoardPost[] = [
     href: "https://www.neis.go.kr"
   },
   {
-    id: "sen",
+    id: "gwe",
     category: "업무시스템",
-    title: "서울특별시교육청",
+    title: "강원특별자치도교육청",
     summary: "공지·지침·부서 안내",
-    date: "sen.go.kr",
-    href: "https://www.sen.go.kr"
+    date: "gwe.go.kr",
+    href: "https://www.gwe.go.kr"
   },
   {
     id: "star-moe",
