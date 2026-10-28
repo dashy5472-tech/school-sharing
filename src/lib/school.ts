@@ -184,8 +184,9 @@ export async function signOutSchool() {
 /* 업무 기록                              */
 /* ------------------------------------- */
 
+/* deptId 를 null 로 주면 모든 부서의 업무 기록을 받습니다. 검색과 작성 현황에서 씁니다. */
 export function watchDuties(
-  deptId: string,
+  deptId: string | null,
   onData: (duties: SavedDuty[]) => void,
   onError?: () => void
 ) {
@@ -194,7 +195,8 @@ export function watchDuties(
     return () => {};
   }
 
-  const q = query(collection(db, "duties"), where("deptId", "==", deptId));
+  const base = collection(db, "duties");
+  const q = deptId ? query(base, where("deptId", "==", deptId)) : query(base);
 
   return onSnapshot(
     q,
@@ -608,12 +610,15 @@ export type SavedForm = {
   authorEmail: string;
 };
 
-export function watchForms(deptId: string, onData: (forms: SavedForm[]) => void) {
+/* deptId 를 null 로 주면 모든 부서의 서식을 받습니다. */
+export function watchForms(deptId: string | null, onData: (forms: SavedForm[]) => void) {
   if (!ready() || !db) {
     onData([]);
     return () => {};
   }
-  return onSnapshot(query(collection(db, "forms"), where("deptId", "==", deptId)), snapshot => {
+  const base = collection(db, "forms");
+  const q = deptId ? query(base, where("deptId", "==", deptId)) : query(base);
+  return onSnapshot(q, snapshot => {
     onData(
       snapshot.docs.map(d => {
         const data = d.data() as Record<string, unknown>;

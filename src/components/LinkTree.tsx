@@ -5,6 +5,9 @@ import { asset } from "@/lib/asset";
 import Calendar from "@/components/Calendar";
 import AdminPanel from "@/components/AdminPanel";
 import TaskAlert from "@/components/TaskAlert";
+import MyTasks from "@/components/MyTasks";
+import SiteSearch from "@/components/SiteSearch";
+import DutyProgress from "@/components/DutyProgress";
 import TeacherRoster from "@/components/TeacherRoster";
 import ScheduleImport from "@/components/ScheduleImport";
 import DutyEditor from "@/components/DutyEditor";
@@ -37,6 +40,11 @@ import {
 } from "@/config/departments";
 
 const HOME = "home";
+const ADMIN = "admin";
+
+/* 매일 쓰는 업무 시스템은 첫 화면 위쪽 바로가기 줄에, 나머지는 맨 아래 참고 자료에 둡니다. */
+const quickLinks = boardPosts.filter(post => post.category === "업무시스템");
+const referenceLinks = boardPosts.filter(post => post.category !== "업무시스템");
 
 /* ------------------------------------- */
 /* 날짜 계산                              */
@@ -308,7 +316,7 @@ function DeadlineRow({
   );
 }
 
-function HomeView() {
+function HomeView({ onGo }: { onGo: (tab: string) => void }) {
   const [events, setEvents] = useState<SchoolEvent[]>([]);
   const [tasks, setTasks] = useState<SavedTask[]>([]);
 
@@ -439,9 +447,23 @@ function HomeView() {
         </div>
       </section>
 
+      {quickLinks.length > 0 ? (
+        <nav className="quick-links" aria-label="자주 쓰는 사이트">
+          {quickLinks.map(link => (
+            <a key={link.id} href={link.href} target="_blank" rel="noopener noreferrer">
+              {link.title}
+            </a>
+          ))}
+        </nav>
+      ) : null}
+
+      <SiteSearch onGo={onGo} />
+
+      <MyTasks />
+
       <section className="board">
         <div className="board-col">
-          <h2 className="sec-title">이달의 마감</h2>
+          <h2 className="sec-title">이달의 일정</h2>
           <Calendar notices={calendarItems} />
         </div>
 
@@ -473,7 +495,7 @@ function HomeView() {
           ) : null}
 
           <div className={`dl-group${week.length > 0 ? " is-week" : ""}`}>
-            <h3 className="dl-group-title">이번 주 공지 · 이번 주 안에 마감</h3>
+            <h3 className="dl-group-title">이번 주</h3>
             {week.length === 0 ? (
               <div className="dl-empty">이번 주 마감은 없습니다.</div>
             ) : (
@@ -508,17 +530,11 @@ function HomeView() {
         <TaskBoard />
       </section>
 
-      <ScheduleImport events={events} />
-
-      <TeacherRoster />
-
-      <AdminPanel />
-
-      {boardPosts.length > 0 ? (
+      {referenceLinks.length > 0 ? (
         <section className="links">
-          <h2 className="sec-title">공용 링크</h2>
+          <h2 className="sec-title">참고 자료</h2>
           <ul className="link-grid">
-            {boardPosts.map(post => (
+            {referenceLinks.map(post => (
               <li key={post.id}>
                 <a className="link-card" href={post.href} target="_blank" rel="noopener noreferrer">
                   <span className="link-tag">{post.category}</span>
@@ -532,6 +548,29 @@ function HomeView() {
         </section>
       ) : null}
     </>
+  );
+}
+
+/* ------------------------------------- */
+/* 관리 화면                              */
+/* ------------------------------------- */
+
+/* 편집 권한이 있는 사람만 보는 탭입니다. 예전에는 첫 화면 아래에 섞여 있던 도구를 모았습니다. */
+function AdminView({ onGo }: { onGo: (tab: string) => void }) {
+  const [events, setEvents] = useState<SchoolEvent[]>([]);
+  useEffect(() => watchEvents(setEvents), []);
+
+  return (
+    <div className="admin-view">
+      <header className="dept-head">
+        <h1>관리</h1>
+        <p>작성 현황, 학사일정 가져오기, 교사 명단, 편집 권한을 다룹니다.</p>
+      </header>
+      <DutyProgress onGo={onGo} />
+      <ScheduleImport events={events} />
+      <TeacherRoster />
+      <AdminPanel />
+    </div>
   );
 }
 
@@ -708,27 +747,12 @@ function DeptView({ dept }: { dept: Department }) {
 
       <DriveBar deptId={dept.id} note={dept.drive?.note} />
 
-      {open ? null : (
-        <section className="dept-block">
-          <h2 className="sec-title">부서 게시판</h2>
-          <PostBoard deptId={dept.id} />
-        </section>
-      )}
-
-      {open ? null : (
-        <section className="dept-block">
-          <h2 className="sec-title">제출 현황</h2>
-          <TaskBoard deptId={dept.id} />
-        </section>
-      )}
-
+      {/* 인수인계 받은 사람이 가장 먼저 찾는 업무분장을 맨 위에 둡니다. */}
       {open ? null : <h2 className="sec-title">업무분장</h2>}
 
       {open ? (
         <DutyDetail duty={open} deptId={dept.id} onBack={() => setOpenId(null)} />
-      ) : dept.duties.length === 0 ? (
-        <div className="dl-empty">아직 등록된 업무분장이 없습니다.</div>
-      ) : (
+      ) : dept.duties.length === 0 ? null : (
         <ul className="duty-grid">
           {dept.duties.map(duty => (
             <li key={duty.id}>
@@ -749,7 +773,21 @@ function DeptView({ dept }: { dept: Department }) {
         </ul>
       )}
 
-      {open ? null : <DutyEditor deptId={dept.id} />}
+      {open ? null : <DutyEditor deptId={dept.id} showEmpty={dept.duties.length === 0} />}
+
+      {open ? null : (
+        <section className="dept-block">
+          <h2 className="sec-title">부서 게시판</h2>
+          <PostBoard deptId={dept.id} />
+        </section>
+      )}
+
+      {open ? null : (
+        <section className="dept-block">
+          <h2 className="sec-title">제출 현황</h2>
+          <TaskBoard deptId={dept.id} />
+        </section>
+      )}
     </section>
   );
 }
@@ -772,14 +810,22 @@ function SignedIn() {
 }
 
 export default function LinkTree() {
+  const { canEdit } = useSchoolUser();
   const [tab, setTab] = useState<string>(HOME);
   const activeDept = departments.find(d => d.id === tab);
+  const showAdmin = canEdit();
+
+  /* 검색 결과나 작성 현황에서 다른 탭으로 옮길 때 씁니다. 화면 맨 위로 올려 줍니다. */
+  const go = (next: string) => {
+    setTab(next);
+    window.scrollTo({ top: 0 });
+  };
 
   /* ?tab=affairs 처럼 주소로 바로 들어올 수 있게 합니다. */
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get("tab");
     if (!wanted) return;
-    if (wanted === HOME || departments.some(d => d.id === wanted)) setTab(wanted);
+    if (wanted === HOME || wanted === ADMIN || departments.some(d => d.id === wanted)) setTab(wanted);
   }, []);
 
   /* 바탕화면 앱으로 설치되게 하는 서비스워커입니다. */
@@ -828,12 +874,27 @@ export default function LinkTree() {
                 {dept.name}
               </button>
             ))}
+            {showAdmin ? (
+              <button
+                type="button"
+                className={`gnb-btn is-admin${tab === ADMIN ? " is-active" : ""}`}
+                onClick={() => setTab(ADMIN)}
+              >
+                관리
+              </button>
+            ) : null}
           </div>
         </nav>
       </header>
 
       <main className="mn">
-        {activeDept ? <DeptView key={activeDept.id} dept={activeDept} /> : <HomeView />}
+        {activeDept ? (
+          <DeptView key={activeDept.id} dept={activeDept} />
+        ) : tab === ADMIN && showAdmin ? (
+          <AdminView onGo={go} />
+        ) : (
+          <HomeView onGo={go} />
+        )}
       </main>
 
       <footer className="ft">
@@ -854,7 +915,8 @@ export default function LinkTree() {
         </p>
       </footer>
 
-      <TaskAlert />
+      {/* 첫 화면에는 "내가 낼 것"이 있으므로 알림은 다른 탭에서만 띄웁니다. */}
+      {tab === HOME ? null : <TaskAlert />}
     </div>
   );
 }

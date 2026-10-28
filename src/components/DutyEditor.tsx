@@ -240,17 +240,22 @@ function SavedDutyCard({ duty }: { duty: SavedDuty }) {
   );
 }
 
-export default function DutyEditor({ deptId }: { deptId: string }) {
+/* showEmpty 는 코드에 적힌 업무분장도 없을 때 켭니다. 담당자 기록까지 비어 있으면 안내 문구를 띄웁니다. */
+export default function DutyEditor({ deptId, showEmpty = false }: { deptId: string; showEmpty?: boolean }) {
   const { canEdit } = useSchoolUser();
   const [duties, setDuties] = useState<SavedDuty[]>([]);
   const [adding, setAdding] = useState(false);
 
   useEffect(() => watchDuties(deptId, setDuties), [deptId]);
 
-  if (!isSchoolLoginEnabled) return null;
+  const empty =
+    showEmpty && duties.length === 0 ? <div className="dl-empty">아직 등록된 업무분장이 없습니다.</div> : null;
+
+  if (!isSchoolLoginEnabled) return empty;
 
   return (
     <div className="saved-list">
+      {empty}
       {duties.map(duty => (
         <SavedDutyCard key={duty.id} duty={duty} />
       ))}

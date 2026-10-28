@@ -6,10 +6,9 @@
    아직 제출 표시를 하지 않은 것이 있으면 화면 아래에 띄웁니다.
    닫으면 그날 하루는 다시 뜨지 않습니다. 마감이 지난 과제는 닫아도 계속 뜹니다. */
 
-import { useEffect, useMemo, useState } from "react";
-import { useSchoolUser } from "@/components/SchoolGate";
-import { departments } from "@/config/departments";
-import { isSchoolLoginEnabled, toggleTaskDone, watchTasks, type SavedTask } from "@/lib/school";
+import { useEffect, useState } from "react";
+import { daysLeft, deptName, leftLabel, useMyTasks } from "@/components/MyTasks";
+import { isSchoolLoginEnabled, toggleTaskDone } from "@/lib/school";
 
 const HIDE_KEY = "sejong-task-alert-hidden";
 
@@ -18,32 +17,10 @@ function today() {
   return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
 
-function daysLeft(due: string) {
-  const [y, m, d] = due.split("-").map(Number);
-  const target = new Date(y, (m || 1) - 1, d || 1);
-  const now = new Date();
-  const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  return Math.round((target.getTime() - start.getTime()) / 86_400_000);
-}
-
-function leftLabel(left: number) {
-  if (left < 0) return `${-left}일 지남`;
-  if (left === 0) return "오늘까지";
-  if (left === 1) return "내일까지";
-  return `${left}일 남음`;
-}
-
-function deptName(deptId: string) {
-  return departments.find(d => d.id === deptId)?.name ?? "";
-}
-
 export default function TaskAlert() {
-  const { user } = useSchoolUser();
-  const [tasks, setTasks] = useState<SavedTask[]>([]);
+  const { user, mine } = useMyTasks();
   const [hidden, setHidden] = useState(true);
   const [folded, setFolded] = useState(false);
-
-  useEffect(() => watchTasks(setTasks), []);
 
   /* 그날 이미 닫았는지 확인합니다. 브라우저가 저장을 막아도 화면은 정상으로 둡니다. */
   useEffect(() => {
@@ -53,15 +30,6 @@ export default function TaskAlert() {
       setHidden(false);
     }
   }, []);
-
-  const mine = useMemo(() => {
-    const me = user?.email?.toLowerCase();
-    if (!me) return [];
-    return tasks
-      .filter(task => task.assignees.some(a => a.email.toLowerCase() === me))
-      .filter(task => !task.done.includes(me))
-      .sort((a, b) => a.due.localeCompare(b.due));
-  }, [tasks, user]);
 
   const overdue = mine.filter(task => daysLeft(task.due) < 0);
 
