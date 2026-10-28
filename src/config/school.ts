@@ -28,7 +28,12 @@ export const SCHOOL = {
   dormsUrl: "",
 
   /* 개인정보처리방침에 적는 담당자 표기입니다. 이름 대신 직책을 권합니다. */
-  privacyManager: "부별공유 관리자"
+  privacyManager: "부별공유 관리자",
+
+  /* 나이스 학사일정을 달력에 불러올 때 쓰는 코드입니다. 비워 두면 불러오지 않습니다.
+     officeCode 는 시도교육청 코드(강원 K10), schoolCode 는 행정표준코드입니다.
+     인증키는 환경변수 NEXT_PUBLIC_NEIS_API_KEY 로 넣습니다. 없으면 5건까지만 옵니다. */
+  neis: { officeCode: "K10", schoolCode: "7801094" }
 } as const;
 
 /* 도메인 목록입니다. 환경변수 NEXT_PUBLIC_SCHOOL_DOMAIN 을 넣으면 그것이 우선합니다. */

@@ -23,6 +23,7 @@ import {
   type SavedTask,
   type SchoolEvent
 } from "@/lib/school";
+import { fetchNeisSchedule } from "@/lib/neis";
 import { boardPosts } from "@/config/linktree";
 import { SCHOOL } from "@/config/school";
 import {
@@ -310,8 +311,13 @@ function HomeView() {
   const [events, setEvents] = useState<SchoolEvent[]>([]);
   const [tasks, setTasks] = useState<SavedTask[]>([]);
 
+  const [neisItems, setNeisItems] = useState<Notice[]>([]);
+
   useEffect(() => watchEvents(setEvents), []);
   useEffect(() => watchTasks(setTasks), []);
+  useEffect(() => {
+    void fetchNeisSchedule().then(setNeisItems);
+  }, []);
 
   /* 제출 과제도 마감입니다. 마감 기한 목록과 달력에 함께 올립니다. */
   const taskNotices = useMemo<Notice[]>(
@@ -341,11 +347,12 @@ function HomeView() {
     return map;
   }, [tasks]);
 
-  /* 달력에는 코드에 적힌 마감과 가져온 학사일정을 함께 보여 줍니다. */
+  /* 달력에는 코드에 적힌 마감, 가져온 학사일정, 나이스 학사일정을 함께 보여 줍니다. */
   const calendarItems = useMemo<Notice[]>(
     () => [
       ...notices,
       ...taskNotices,
+      ...neisItems,
       ...events.filter(e => e.status !== "pending").map(e => ({
         id: e.id,
         due: e.date,
@@ -354,7 +361,7 @@ function HomeView() {
         detail: e.detail
       }))
     ],
-    [events, taskNotices]
+    [events, taskNotices, neisItems]
   );
 
   /* 마감 목록에는 마감으로 표시한 것만 넣습니다. */
