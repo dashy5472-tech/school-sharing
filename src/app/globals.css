@@ -2430,20 +2430,16 @@ img {
   background: var(--blush-soft);
 }
 
-/* 첫 화면: 흰 바탕 아래로 하늘색 빛이 번지고 옅은 격자가 깔립니다.
-   달력이 한눈에 들어오도록 높이는 낮게 둡니다. */
+/* 첫 화면: 상자 없이 흰 바탕에 제목과 설명 한 줄만 둡니다.
+   달력이 한눈에 들어오도록 여백도 작게 둡니다. */
 .hero {
-  margin-bottom: 24px;
-  padding: 26px 24px 30px;
-  text-align: center;
-  border: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-  border-radius: 16px;
-  background:
-    linear-gradient(rgba(43, 107, 234, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
-    linear-gradient(90deg, rgba(43, 107, 234, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
-    radial-gradient(70% 140% at 50% 160%, rgba(79, 134, 247, 0.55), rgba(142, 180, 252, 0.25) 50%, transparent 80%),
-    var(--white);
+  margin-bottom: 20px;
+  padding: 4px 2px 0;
+  text-align: left;
+  border: none;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
 }
 
 .hero-text h1 {
@@ -2455,7 +2451,7 @@ img {
 }
 
 .hero-text p {
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 14.5px;
   color: var(--muted);
 }
@@ -2471,10 +2467,6 @@ img {
 
   .hd-sub {
     font-size: 16px;
-  }
-
-  .hero {
-    padding: 20px 16px 24px;
   }
 
   .hero-text h1 {
